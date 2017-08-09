@@ -33,6 +33,7 @@ if __name__ == "__main__":
   init_op = tf.global_variables_initializer()
 
   log_dir = config["log_dir"]
+  max_iteration = int(config["max_iteration"])
 
   # Create a "supervisor", which oversees the training process.
   sv = tf.train.Supervisor(logdir=log_dir,
@@ -59,5 +60,7 @@ if __name__ == "__main__":
         print "[{}] loss={:.2f}, steps/s={:.2f}".format(tf_global_step, tf_loss, steps_per_second)
         accumulated_loss = 0.0
 
+#      if tf_global_step > max_iteration:
+#	sv.request_stop()
   # Ask for all the services to stop.
   sv.stop()
